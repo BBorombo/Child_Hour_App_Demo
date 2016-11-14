@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Child Hours App Demo</string>
+
+    <string name="arrival">Arrivée</string>
+    <string name="departure">Départ</string>
+
+    <string name="addProfileTitle">Ajouter un profil</string>
+    <string name="prenom">Prenom</string>
+    <string name="nom">Nom</string>
+    <string name="photo">Photo</string>
+
+    <string name="valid">Valider</string>
+    <string name="cancel">Annuler</string>
+
+</resources>
