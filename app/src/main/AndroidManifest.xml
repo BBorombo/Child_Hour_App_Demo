@@ -15,7 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AddProfileActivity"></activity>
+        <activity android:name=".activities.AddProfileActivity" />
+        <activity android:name=".activities.DeleteProfileActivity" />
+        <activity
+            android:name=".activities.HistoryActivity"
+            android:label="@string/title_activity_history"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

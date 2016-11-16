@@ -1,10 +1,13 @@
 package com.borombo.childhoursappdemo.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.adapters.HomeProfileAdapter;
@@ -44,6 +47,25 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
+
+        Button addProfile = (Button) findViewById(R.id.addProfile);
+        Button deleteProfile = (Button) findViewById(R.id.deleteProfile);
+
+        addProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        deleteProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DeleteProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

@@ -9,33 +9,23 @@ import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.model.Profile;
 
 /**
- * Created by Erwan on 12/11/2016.
+ * Created by Erwan on 15/11/2016.
  */
 
-public class HomeProfileHolder extends RecyclerView.ViewHolder{
+public class DeleteProfilHolder extends RecyclerView.ViewHolder{
 
     private TextView profileName;
-    private Button arrival;
-    private Button departure;
+    private Button deleteButton;
 
-    public HomeProfileHolder(View itemView) {
+    public DeleteProfilHolder(View itemView) {
         super(itemView);
 
         this.profileName = (TextView) itemView.findViewById(R.id.porfileName);
-        this.arrival= (Button) itemView.findViewById(R.id.arrivalButton);
-        this.departure= (Button) itemView.findViewById(R.id.departureButton);
-
-        this.arrival.setOnClickListener(new View.OnClickListener() {
+        this.deleteButton = (Button) itemView.findViewById(R.id.deleteButton);
+        this.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
-
-        this.departure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                // Suppression du profil
             }
         });
     }

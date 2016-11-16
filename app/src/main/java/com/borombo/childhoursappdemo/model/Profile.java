@@ -27,6 +27,12 @@ public class Profile extends RealmObject {
         this.name = name;
     }
 
+    public Profile (String name, String phone){
+        id = count.incrementAndGet();
+        this.name = name;
+        this.phone = phone;
+    }
+
     public Boolean isPresent() {
         return present;
     }

@@ -1,11 +1,14 @@
 package com.borombo.childhoursappdemo.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.borombo.childhoursappdemo.R;
+import com.borombo.childhoursappdemo.activities.HistoryActivity;
 import com.borombo.childhoursappdemo.holders.HomeProfileHolder;
 import com.borombo.childhoursappdemo.model.Profile;
 
@@ -30,14 +33,17 @@ public class HomeProfileAdapter extends RecyclerView.Adapter<HomeProfileHolder> 
     }
 
     @Override
-    public void onBindViewHolder(HomeProfileHolder holder, int position) {
+    public void onBindViewHolder(final HomeProfileHolder holder, int position) {
         final Profile profile = profiles.get(position);
+        final Context context = holder.itemView.getContext();
+
         holder.updateUI(profile);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, HistoryActivity.class);
+                context.startActivity(intent);
             }
         });
     }
