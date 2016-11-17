@@ -21,7 +21,9 @@ public class DeleteProfileActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
 
         DeleteProfileAdapter adapter;
-        adapter = new DeleteProfileAdapter(new ArrayList<Profile>());
+        ArrayList<Profile> profiles = new ArrayList<Profile>();
+        profiles.add(new Profile("Superman","0606060606"));
+        adapter = new DeleteProfileAdapter(profiles);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);

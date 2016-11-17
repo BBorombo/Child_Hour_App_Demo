@@ -14,13 +14,13 @@ android:layout_height="wrap_content">
 
 <Button
     android:id="@+id/arrivalButton"
-    android:text="@string/arrival"
+    android:text="@string/arrival_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 
 <Button
     android:id="@+id/departureButton"
-    android:text="@string/departure"
+    android:text="@string/departure_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 
