@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.adapters.HomeProfileAdapter;
 import com.borombo.childhoursappdemo.model.Profile;
+import com.borombo.childhoursappdemo.singleton.FakeData;
 
 import java.util.ArrayList;
 
@@ -35,13 +35,11 @@ public class MainActivity extends AppCompatActivity {
         profiles.add(new Profile("Truc"));
         profiles.add(new Profile("Machin"));
 
-        Log.i("Id :", String.valueOf(profiles.get(5).getId()));
-
         RecyclerView recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
 
         HomeProfileAdapter adapter;
 
-        adapter = new HomeProfileAdapter(profiles);
+        adapter = new HomeProfileAdapter(FakeData.getInstance().getProfiles());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);

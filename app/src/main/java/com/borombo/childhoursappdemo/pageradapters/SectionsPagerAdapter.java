@@ -18,8 +18,11 @@ import com.borombo.childhoursappdemo.fragments.MensualHistoryFragment;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    public SectionsPagerAdapter(FragmentManager fm) {
+    private int profileId;
+
+    public SectionsPagerAdapter(FragmentManager fm, int profileId) {
         super(fm);
+        this.profileId = profileId;
     }
 
     @Override
@@ -28,9 +31,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position) {
             case 0:
-                return DailyHistoryFragment.newInstance("","");
+                return DailyHistoryFragment.newInstance(profileId);
             case 1:
-                return MensualHistoryFragment.newInstance("","");
+                return MensualHistoryFragment.newInstance(profileId);
         }
         return null;
     }

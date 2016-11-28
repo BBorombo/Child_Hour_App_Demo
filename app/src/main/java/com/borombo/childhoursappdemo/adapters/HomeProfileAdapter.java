@@ -43,6 +43,7 @@ public class HomeProfileAdapter extends RecyclerView.Adapter<HomeProfileHolder> 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, HistoryActivity.class);
+                intent.putExtra("PROFILE_ID",profile.getId());
                 context.startActivity(intent);
             }
         });

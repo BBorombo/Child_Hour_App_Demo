@@ -20,14 +20,16 @@ public class Profile extends RealmObject {
     private Boolean present;
     RealmList<DailyTimeSheet> timeSheets = new RealmList<>();
 
-    public Profile(){id = count.incrementAndGet();}
+    public Profile() {
+        id = count.incrementAndGet();
+    }
 
     public Profile(String name) {
         id = count.incrementAndGet();
         this.name = name;
     }
 
-    public Profile (String name, String phone){
+    public Profile(String name, String phone) {
         id = count.incrementAndGet();
         this.name = name;
         this.phone = phone;
@@ -39,6 +41,14 @@ public class Profile extends RealmObject {
 
     public void setPresent(Boolean present) {
         this.present = present;
+    }
+
+    public RealmList<DailyTimeSheet> getTimeSheets() {
+        return timeSheets;
+    }
+
+    public void setTimeSheets(RealmList<DailyTimeSheet> timeSheets) {
+        this.timeSheets = timeSheets;
     }
 
     public int getId() {
@@ -72,4 +82,6 @@ public class Profile extends RealmObject {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
 }
+

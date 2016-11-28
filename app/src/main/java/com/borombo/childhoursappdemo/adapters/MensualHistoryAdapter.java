@@ -10,7 +10,7 @@ import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.holders.MensualHistoryHolder;
 import com.borombo.childhoursappdemo.model.DailyTimeSheet;
 
-import java.util.ArrayList;
+import io.realm.RealmList;
 
 /**
  * Created by Erwan on 17/11/2016.
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 
 public class MensualHistoryAdapter extends RecyclerView.Adapter<MensualHistoryHolder>{
 
-    private ArrayList<DailyTimeSheet> dailyTimeSheets;
+    private RealmList<DailyTimeSheet> dailyTimeSheets;
 
-    public MensualHistoryAdapter(ArrayList<DailyTimeSheet> dailyTimeSheets){this.dailyTimeSheets = dailyTimeSheets;}
+    public MensualHistoryAdapter(RealmList<DailyTimeSheet> dailyTimeSheets){this.dailyTimeSheets = dailyTimeSheets;}
 
     @Override
     public MensualHistoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {

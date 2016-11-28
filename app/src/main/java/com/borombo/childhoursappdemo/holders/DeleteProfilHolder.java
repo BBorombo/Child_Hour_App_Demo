@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.model.Profile;
+import com.borombo.childhoursappdemo.singleton.FakeData;
 
 /**
  * Created by Erwan on 15/11/2016.
@@ -15,7 +16,9 @@ import com.borombo.childhoursappdemo.model.Profile;
 public class DeleteProfilHolder extends RecyclerView.ViewHolder{
 
     private TextView profileName;
+    private int profileId;
     private Button deleteButton;
+
 
     public DeleteProfilHolder(View itemView) {
         super(itemView);
@@ -26,11 +29,13 @@ public class DeleteProfilHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View view) {
                 // Suppression du profil
+                FakeData.getInstance().removeById(profileId);
             }
         });
     }
 
     public void updateUI(Profile profile){
         profileName.setText(profile.getName());
+        profileId = profile.getId();
     }
 }

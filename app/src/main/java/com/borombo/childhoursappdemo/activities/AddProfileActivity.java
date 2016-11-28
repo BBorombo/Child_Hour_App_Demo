@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.model.Profile;
+import com.borombo.childhoursappdemo.singleton.FakeData;
 
 public class AddProfileActivity extends AppCompatActivity {
 
@@ -28,9 +29,10 @@ public class AddProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (name.getText().length() >= 2 && phone.getText().length() >= 8){
+                if (name.getText().length() >= 2 && phone.getText().length() >= 10){
                     Profile profile = new Profile(name.getText().toString(), phone.getText().toString());
                     // Ajout du profil en BD
+                    FakeData.getInstance().getProfiles().add(profile);
 
                 }else{
                     Snackbar snackbar = Snackbar
