@@ -31,7 +31,7 @@ public class MensualHistoryHolder extends RecyclerView.ViewHolder {
         this.dayDate.setText(dailyTimeSheet.getDay() + "/" + dailyTimeSheet.getMonth());
         this.firstArrival.setText(dailyTimeSheet.getCommings().get(0).getArrival().toString());
         this.lastDeparture.setText(dailyTimeSheet.getCommings().get(dailyTimeSheet.getCommings().size() -1).getDeparture().toString());
-        this.totalTime.setText(String.valueOf(dailyTimeSheet.getTotalTime()));
+        this.totalTime.setText(dailyTimeSheet.getTotalTime().toString());
     }
 
 }

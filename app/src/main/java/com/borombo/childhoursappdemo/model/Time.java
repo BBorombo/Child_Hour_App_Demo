@@ -36,19 +36,22 @@ public class Time extends RealmObject {
 
     @Override
     public String toString() {
-        String res = "";
-        if (0 == hours){
-            res += "0"+hours;
-        }else {
-            res += hours;
+        StringBuilder res = new StringBuilder();
+        if (0 == hours && 0 == minutes){
+            res.append(" ND ");
+        }else{
+            if (0 == hours){
+                res.append("0").append(hours);
+            }else {
+                res.append(hours);
+            }
+            res.append(" h ");
+            if (minutes < 10){
+                res.append("0").append(minutes);
+            }else {
+                res.append(minutes) ;
+            }
         }
-        res+= " h ";
-        if (minutes < 10){
-            res += "0"+minutes;
-        }else {
-            res += minutes;
-        }
-
-        return res;
+        return res.toString();
     }
 }

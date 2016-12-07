@@ -1,6 +1,7 @@
 package com.borombo.childhoursappdemo.fragments;
 
 
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.borombo.childhoursappdemo.Data.Constants;
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.adapters.MensualHistoryAdapter;
 import com.borombo.childhoursappdemo.model.Profile;
@@ -69,7 +71,16 @@ public class MensualHistoryFragment extends Fragment {
         monthDate = (TextView) view.findViewById(R.id.monthDate);
         totalMonth = (TextView) view.findViewById(R.id.totalMonth);
 
+        String currentMonth = Constants.MONTH_SDF.format(Calendar.getInstance());
+        String date = Constants.SDF.format(Calendar.getInstance());
+
+        String total = profile.totalByMonth(date.split("_")[1], date.split("_")[2]);
+        totalMonth.append(" " + total);
+
+        monthDate.setText(Constants.formatMonthDate(currentMonth));
         profileName.setText(profile.getName());
+
+
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 

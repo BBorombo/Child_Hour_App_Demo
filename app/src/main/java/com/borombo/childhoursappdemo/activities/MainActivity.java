@@ -2,20 +2,27 @@ package com.borombo.childhoursappdemo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.adapters.HomeProfileAdapter;
 import com.borombo.childhoursappdemo.model.Profile;
 import com.borombo.childhoursappdemo.singleton.FakeData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
+    private TextView currentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,17 @@ public class MainActivity extends AppCompatActivity {
         profiles.add(new Profile("Truc"));
         profiles.add(new Profile("Machin"));
 
+        currentTime = (TextView) findViewById(R.id.currentTime);
         RecyclerView recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
+
+        final Handler someHandler = new Handler(getMainLooper());
+        someHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                currentTime.setText(new SimpleDateFormat("HH:mm", Locale.FRANCE).format(new Date()));
+                someHandler.postDelayed(this, 1000);
+            }
+        }, 10);
 
         HomeProfileAdapter adapter;
 
@@ -66,4 +83,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
 }

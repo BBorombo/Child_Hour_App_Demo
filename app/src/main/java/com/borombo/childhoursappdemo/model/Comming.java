@@ -10,7 +10,7 @@ public class Comming extends RealmObject {
 
     private int id;
     private Time arrival;
-    private Time departure;
+    private Time departure = new Time();
     private Time time;
 
     public Comming() {}

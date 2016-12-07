@@ -22,7 +22,10 @@
     <string name="arrival">Arrivée : </string>
     <string name="departure">Départ : </string>
     <string name="total">Total : </string>
-    <string name="totalDay">Total Journée : </string>
+    <string name="totalDay">Total Journée :  </string>
+    <string name="noTime">00 h 00</string>
+
+    <string name="modifyText">Quel horaire voulez-vous modifier ?</string>
 
 
 </resources>

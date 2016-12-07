@@ -1,5 +1,6 @@
 package com.borombo.childhoursappdemo.model;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.realm.RealmList;
@@ -17,7 +18,7 @@ public class Profile extends RealmObject {
     private String name;
     private String phone;
     private String photo;
-    private Boolean present;
+    private Boolean present = false;
     RealmList<DailyTimeSheet> timeSheets = new RealmList<>();
 
     public Profile() {
@@ -33,6 +34,55 @@ public class Profile extends RealmObject {
         id = count.incrementAndGet();
         this.name = name;
         this.phone = phone;
+    }
+
+    public DailyTimeSheet getDTSByDay(String day){
+        String dayContent[] = day.split("_");
+        for (DailyTimeSheet dts : timeSheets){
+            if (dts.getDay().equals(dayContent[0]) && dts.getMonth().equals(dayContent[1]) && dts.getYears().equals(dayContent[2])){
+                return dts;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<DailyTimeSheet> getDTSByMonth(String month, String year){
+        ArrayList<DailyTimeSheet> dailyTimeSheets = new ArrayList<>();
+        for (DailyTimeSheet dts : timeSheets){
+            if (dts.getMonth().equals(month) && dts.getYears().equals(year)){
+                dailyTimeSheets.add(dts);
+            }
+        }
+        return dailyTimeSheets;
+    }
+
+    public String totalByMonth(String month, String year){
+        Time totalMonthTime = new Time();
+        for (DailyTimeSheet dts : timeSheets){
+            if (dts.getMonth().equals(month) && dts.getYears().equals(year)){
+                Time tmp = dts.getTotalTime();
+                // Hours
+                totalMonthTime.setHours(totalMonthTime.getHours() + tmp.getHours());
+                // Minutes
+                int mins = totalMonthTime.getMinutes() + tmp.getMinutes();
+                if (mins > 60){
+                    totalMonthTime.setHours(totalMonthTime.getHours() + 1);
+                    totalMonthTime.setMinutes(mins - 60);
+                }else if(mins == 60){
+                    totalMonthTime.setHours(totalMonthTime.getHours() + 1);
+                    totalMonthTime.setMinutes(0);
+                }else {
+                    totalMonthTime.setMinutes(mins);
+                }
+            }
+        }
+        return totalMonthTime.toString();
+    }
+
+    public boolean isTDSForDate(String date){
+        boolean res = false;
+
+        return res;
     }
 
     public Boolean isPresent() {

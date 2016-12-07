@@ -11,14 +11,17 @@ import com.borombo.childhoursappdemo.singleton.FakeData;
 
 public class DeleteProfileActivity extends AppCompatActivity {
 
+    private DeleteProfileAdapter adapter;
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_profile);
 
-        RecyclerView recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
 
-        DeleteProfileAdapter adapter;
+
 //        ArrayList<Profile> profiles = new ArrayList<Profile>();
 //        profiles.add(new Profile("Superman","0606060606"));
 
@@ -26,5 +29,11 @@ public class DeleteProfileActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void profileDeleted(int position){
+        recyclerView.removeViewAt(position);
+        adapter.notifyItemRemoved(position);
+        adapter.notifyItemRangeChanged(position, FakeData.getInstance().getProfiles().size());
     }
 }

@@ -27,6 +27,10 @@ public class DailyTimeSheet extends RealmObject {
         totalTime = new Time();
     }
 
+    public void addComming(String dateTimeValues[]){
+        commings.add(new Comming(dateTimeValues[3], dateTimeValues[4]));
+    }
+
     public int getId() {
         return id;
     }
@@ -60,20 +64,23 @@ public class DailyTimeSheet extends RealmObject {
     }
 
     public Time getTotalTime() {
+        totalTime = new Time();
         for (Comming c: commings) {
             Time tmp = c.getTime();
-            // Hours
-            totalTime.setHours(totalTime.getHours() + tmp.getHours());
-            // Minutes
-            int mins = totalTime.getMinutes() + tmp.getMinutes();
-            if (mins > 60){
-                totalTime.setHours(totalTime.getHours() + 1);
-                totalTime.setMinutes(mins - 60);
-            }else if(mins == 60){
-                totalTime.setHours(totalTime.getHours() + 1);
-                totalTime.setMinutes(0);
-            }else {
-                totalTime.setMinutes(mins);
+            if (tmp != null){
+                // Hours
+                totalTime.setHours(totalTime.getHours() + tmp.getHours());
+                // Minutes
+                int mins = totalTime.getMinutes() + tmp.getMinutes();
+                if (mins > 60){
+                    totalTime.setHours(totalTime.getHours() + 1);
+                    totalTime.setMinutes(mins - 60);
+                }else if(mins == 60){
+                    totalTime.setHours(totalTime.getHours() + 1);
+                    totalTime.setMinutes(0);
+                }else {
+                    totalTime.setMinutes(mins);
+                }
             }
         }
 

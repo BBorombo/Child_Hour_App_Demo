@@ -1,6 +1,6 @@
 package com.borombo.childhoursappdemo.fragments;
 
-import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +9,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.borombo.childhoursappdemo.Data.Constants;
 import com.borombo.childhoursappdemo.R;
-import com.borombo.childhoursappdemo.activities.EditHistoryActivity;
 import com.borombo.childhoursappdemo.adapters.DailyHistoryAdapter;
+import com.borombo.childhoursappdemo.model.Comming;
+import com.borombo.childhoursappdemo.model.DailyTimeSheet;
 import com.borombo.childhoursappdemo.model.Profile;
 import com.borombo.childhoursappdemo.singleton.FakeData;
+
+import io.realm.RealmList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +35,7 @@ public class DailyHistoryFragment extends Fragment {
 
     private Profile profile;
     private TextView profileName;
-
-    private Button modify;
+    private DailyTimeSheet dailyProfileDts;
 
     private TextView dayDate;
     private TextView totalDay;
@@ -73,30 +75,30 @@ public class DailyHistoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_history, container, false);
         profileName = (TextView) view.findViewById(R.id.profileName);
-        modify = (Button) view.findViewById(R.id.modify);
         dayDate = (TextView) view.findViewById(R.id.dayDate);
         totalDay = (TextView) view.findViewById(R.id.totalDay);
 
+        String currentDay = Constants.DAY_SDF.format(Calendar.getInstance());
+        String day = Constants.SDF.format(Calendar.getInstance());
+
+        dayDate.setText(Constants.formatDayDate(currentDay));
         profileName.setText(profile.getName());
 
+        DailyHistoryAdapter adapter = new DailyHistoryAdapter(new RealmList<Comming>());
+
+        dailyProfileDts = profile.getDTSByDay(day);
+        if (dailyProfileDts != null){
+            Log.d("DTS", dailyProfileDts.getDay() + dailyProfileDts.getMonth() + dailyProfileDts.getYears());
+            totalDay.setText(dailyProfileDts.getTotalTime().toString());
+            adapter = new DailyHistoryAdapter(dailyProfileDts.getCommings());
+        }
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-
-        DailyHistoryAdapter adapter;
-
-        adapter = new DailyHistoryAdapter(profile.getTimeSheets().get(0).getCommings());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
-
-        modify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), EditHistoryActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
 
         return view;
 

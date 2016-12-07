@@ -24,7 +24,7 @@
             android:id="@+id/firstArrival"
             android:layout_marginLeft="5dp"
             android:textSize="18sp"
-            android:text="08h12"
+            android:text="@string/noTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/lastDeparture"
-            android:text="16h27"
+            android:text="@string/noTime"
             android:layout_marginLeft="5dp"
             android:textSize="18sp"
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
 
         <TextView
             android:id="@+id/totalHour"
-            android:text="08h15"
+            android:text="@string/noTime"
             android:textSize="18sp"
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"

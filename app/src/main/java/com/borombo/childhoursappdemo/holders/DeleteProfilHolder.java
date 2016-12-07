@@ -18,9 +18,10 @@ public class DeleteProfilHolder extends RecyclerView.ViewHolder{
     private TextView profileName;
     private int profileId;
     private Button deleteButton;
+    private int position;
 
 
-    public DeleteProfilHolder(View itemView) {
+    public DeleteProfilHolder(final View itemView) {
         super(itemView);
 
         this.profileName = (TextView) itemView.findViewById(R.id.porfileName);
@@ -30,12 +31,18 @@ public class DeleteProfilHolder extends RecyclerView.ViewHolder{
             public void onClick(View view) {
                 // Suppression du profil
                 FakeData.getInstance().removeById(profileId);
+//                Activity deleteProfileActivity = (Activity) view.getContext().get;
+//
+//                Log.d("Activity Name ", deleteProfileActivity.getPackageName());
+
+//                deleteProfileActivity.profileDeleted(position);
             }
         });
     }
 
-    public void updateUI(Profile profile){
+    public void updateUI(Profile profile, int position){
         profileName.setText(profile.getName());
         profileId = profile.getId();
+        this.position = position;
     }
 }

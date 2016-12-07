@@ -23,15 +23,14 @@ public class DailyHistoryAdapter extends RecyclerView.Adapter<DailyHistoryHolder
 
     @Override
     public DailyHistoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View mensualHistoryView = LayoutInflater.from(parent.getContext()).inflate(R.layout.daily_history_row , parent, false);
-        return new DailyHistoryHolder(mensualHistoryView);
+        View dailyHistoryView = LayoutInflater.from(parent.getContext()).inflate(R.layout.daily_history_row , parent, false);
+        return new DailyHistoryHolder(dailyHistoryView);
     }
 
     @Override
     public void onBindViewHolder(DailyHistoryHolder holder, int position) {
         final Comming comming = commings.get(position);
         holder.updateUI(comming);
-
     }
 
     @Override

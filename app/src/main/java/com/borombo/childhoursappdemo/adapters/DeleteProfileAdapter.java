@@ -31,7 +31,7 @@ public class DeleteProfileAdapter extends RecyclerView.Adapter<DeleteProfilHolde
     @Override
     public void onBindViewHolder(DeleteProfilHolder holder, int position) {
         final Profile profile = profiles.get(position);
-        holder.updateUI(profile);
+        holder.updateUI(profile, position);
     }
 
     @Override
