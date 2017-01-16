@@ -25,7 +25,7 @@ public class DeleteProfileAdapter extends RecyclerView.Adapter<DeleteProfilHolde
     @Override
     public DeleteProfilHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View profileView = LayoutInflater.from(parent.getContext()).inflate(R.layout.delete_profil_row, parent, false);
-        return new DeleteProfilHolder(profileView);
+        return new DeleteProfilHolder(this, profileView);
     }
 
     @Override

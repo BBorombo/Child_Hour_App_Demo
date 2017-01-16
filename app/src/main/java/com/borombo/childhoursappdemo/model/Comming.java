@@ -52,6 +52,7 @@ public class Comming extends RealmObject {
 
     public void setArrival(Time arrival) {
         this.arrival = arrival;
+        setTime();
     }
 
     public Time getDeparture() {
@@ -60,6 +61,7 @@ public class Comming extends RealmObject {
 
     public void setDeparture(Time departure) {
         this.departure = departure;
+        setTime();
     }
 
 }

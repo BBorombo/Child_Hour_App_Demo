@@ -1,11 +1,14 @@
 package com.borombo.childhoursappdemo.holders;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.borombo.childhoursappdemo.R;
+import com.borombo.childhoursappdemo.adapters.DeleteProfileAdapter;
 import com.borombo.childhoursappdemo.model.Profile;
 import com.borombo.childhoursappdemo.singleton.FakeData;
 
@@ -21,7 +24,7 @@ public class DeleteProfilHolder extends RecyclerView.ViewHolder{
     private int position;
 
 
-    public DeleteProfilHolder(final View itemView) {
+    public DeleteProfilHolder(final DeleteProfileAdapter adapter, final View itemView) {
         super(itemView);
 
         this.profileName = (TextView) itemView.findViewById(R.id.porfileName);
@@ -30,12 +33,26 @@ public class DeleteProfilHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View view) {
                 // Suppression du profil
-                FakeData.getInstance().removeById(profileId);
-//                Activity deleteProfileActivity = (Activity) view.getContext().get;
-//
-//                Log.d("Activity Name ", deleteProfileActivity.getPackageName());
+                final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-//                deleteProfileActivity.profileDeleted(position);
+                builder.setTitle(view.getContext().getString(R.string.deleteProfileTitle));
+                builder.setMessage(view.getContext().getString(R.string.deleteText, profileName.getText().toString()));
+
+                builder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) { }
+                });
+
+                builder.setPositiveButton(R.string.valid, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FakeData.getInstance().removeById(profileId);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+                builder.show();
+
             }
         });
     }

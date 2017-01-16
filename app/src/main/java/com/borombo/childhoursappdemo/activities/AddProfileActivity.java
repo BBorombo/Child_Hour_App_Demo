@@ -33,6 +33,16 @@ public class AddProfileActivity extends AppCompatActivity {
                     Profile profile = new Profile(name.getText().toString(), phone.getText().toString());
                     // Ajout du profil en BD
                     FakeData.getInstance().getProfiles().add(profile);
+                    name.setText("");
+                    phone.setText("");
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(R.id.activity_add_profile), getText(R.string.validAdd), Snackbar.LENGTH_LONG)
+                            .setAction("Ok", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                }
+                            });
+                    snackbar.show();
 
                 }else{
                     Snackbar snackbar = Snackbar

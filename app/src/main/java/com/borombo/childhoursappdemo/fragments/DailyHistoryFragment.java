@@ -40,6 +40,9 @@ public class DailyHistoryFragment extends Fragment {
     private TextView dayDate;
     private TextView totalDay;
 
+    private DailyHistoryAdapter adapter;
+    private String day;
+
     public DailyHistoryFragment() {
         // Required empty public constructor
     }
@@ -68,6 +71,7 @@ public class DailyHistoryFragment extends Fragment {
             profile = FakeData.getInstance().getById(profileId);
             Log.d("Profile name", profile.getName());
         }
+        Log.d("Fragment Tag", this.getTag());
     }
 
     @Override
@@ -79,12 +83,12 @@ public class DailyHistoryFragment extends Fragment {
         totalDay = (TextView) view.findViewById(R.id.totalDay);
 
         String currentDay = Constants.DAY_SDF.format(Calendar.getInstance());
-        String day = Constants.SDF.format(Calendar.getInstance());
+        day = Constants.SDF.format(Calendar.getInstance());
 
         dayDate.setText(Constants.formatDayDate(currentDay));
         profileName.setText(profile.getName());
 
-        DailyHistoryAdapter adapter = new DailyHistoryAdapter(new RealmList<Comming>());
+        adapter = new DailyHistoryAdapter(new RealmList<Comming>());
 
         dailyProfileDts = profile.getDTSByDay(day);
         if (dailyProfileDts != null){
@@ -102,6 +106,16 @@ public class DailyHistoryFragment extends Fragment {
 
         return view;
 
+    }
+
+    public  void updateData(){
+        dailyProfileDts = profile.getDTSByDay(day);
+        if (dailyProfileDts != null){
+            Log.d("DTS", dailyProfileDts.getDay() + dailyProfileDts.getMonth() + dailyProfileDts.getYears());
+            totalDay.setText(dailyProfileDts.getTotalTime().toString());
+            adapter = new DailyHistoryAdapter(dailyProfileDts.getCommings());
+        }
+        Log.d("Update","OK");
     }
 
 }

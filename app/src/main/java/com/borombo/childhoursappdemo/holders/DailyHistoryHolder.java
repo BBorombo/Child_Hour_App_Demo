@@ -14,6 +14,7 @@ import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.activities.HistoryActivity;
 import com.borombo.childhoursappdemo.fragments.MensualHistoryFragment;
 import com.borombo.childhoursappdemo.model.Comming;
+import com.borombo.childhoursappdemo.model.Time;
 
 /**
  * Created by Erwan on 28/11/2016.
@@ -64,12 +65,14 @@ public class DailyHistoryHolder extends RecyclerView.ViewHolder {
 
                 builder.setNegativeButton(R.string.arrival_button, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public void onClick(final DialogInterface dialogInterface, int i) {
                         TimePickerDialog timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                                 Log.d("Nouveau Arrivée ",String.valueOf(i) + "h" + String.valueOf(i1));
-                                arrivalTime.setText(String.valueOf(i) + "h" + String.valueOf(i1));
+                                Time t = new Time(i,i1);
+                                comming.setArrival(t);
+                                arrivalTime.setText(t.toString());
                             }
                         }, comming.getArrival().getHours(), comming.getArrival().getMinutes(), true);
                         timePickerDialog.show();
@@ -84,6 +87,9 @@ public class DailyHistoryHolder extends RecyclerView.ViewHolder {
                                 @Override
                                 public void onTimeSet(TimePicker timePicker, int i, int i1) {
                                     Log.d("Nouveau Départ ",String.valueOf(i) + "h" + String.valueOf(i1));
+                                    Time t = new Time(i,i1);
+                                    comming.setDeparture(t);
+                                    derpatureTime.setText(t.toString());
                                 }
                             }, comming.getDeparture().getHours(), comming.getDeparture().getMinutes(), true);
                             timePickerDialog.show();

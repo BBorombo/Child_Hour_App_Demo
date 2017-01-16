@@ -10,7 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.borombo.childhoursappdemo.R;
+import com.borombo.childhoursappdemo.fragments.DailyHistoryFragment;
+import com.borombo.childhoursappdemo.fragments.MensualHistoryFragment;
 import com.borombo.childhoursappdemo.pageradapters.SectionsPagerAdapter;
+
+import java.util.List;
 
 
 public class HistoryActivity extends AppCompatActivity {
@@ -29,6 +33,8 @@ public class HistoryActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+    private TabLayout tabLayout;
 
     private int profileId;
 
@@ -49,7 +55,7 @@ public class HistoryActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
 
@@ -70,9 +76,18 @@ public class HistoryActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if (id == R.id.action_refresh){
+            List<android.support.v4.app.Fragment> fragments = getSupportFragmentManager().getFragments();
+            if (!fragments.isEmpty()){
+                DailyHistoryFragment f1 = (DailyHistoryFragment) fragments.get(0);
+                MensualHistoryFragment f2 = (MensualHistoryFragment) fragments.get(1);
+                f1.updateData();
+                f2.updateData();
+            }
         }
 
         return super.onOptionsItemSelected(item);

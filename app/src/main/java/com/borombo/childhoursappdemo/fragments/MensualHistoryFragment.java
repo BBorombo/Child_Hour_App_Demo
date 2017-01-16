@@ -34,6 +34,10 @@ public class MensualHistoryFragment extends Fragment {
     private TextView monthDate;
     private TextView totalMonth;
 
+    private MensualHistoryAdapter adapter;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+
     public MensualHistoryFragment() {}
 
     /**
@@ -82,17 +86,22 @@ public class MensualHistoryFragment extends Fragment {
 
 
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-
-        MensualHistoryAdapter adapter;
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
         adapter = new MensualHistoryAdapter(profile.getTimeSheets());
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+        linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
         return view;
+    }
+
+    public  void updateData(){
+        adapter = new MensualHistoryAdapter(profile.getTimeSheets());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+        Log.d("Update","OK");
     }
 
 }
