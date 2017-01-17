@@ -25,18 +25,22 @@ public class Comming extends RealmObject {
     }
 
     private void setTime(){
-        int hour = departure.getHours() - arrival.getHours();
-        int min = Math.abs(departure.getMinutes() - arrival.getMinutes());
+
+        int hour;
+        int min;
+
+        if (departure.getMinutes() < arrival.getMinutes()){
+            min = (60 - arrival.getMinutes() ) + departure.getMinutes();
+            hour = departure.getHours() - arrival.getHours() -1;
+        }else{
+            min = departure.getMinutes() - arrival.getMinutes();
+            hour = departure.getHours() - arrival.getHours();
+        }
+
         time = new Time(hour, min);
     }
 
-    public Time getTime() {
-        if (null == time){
-
-        }
-        return time;
-
-    }
+    public Time getTime() {return time;}
 
     public int getId() {
         return id;

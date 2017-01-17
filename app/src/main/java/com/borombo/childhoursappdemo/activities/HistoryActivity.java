@@ -61,6 +61,15 @@ public class HistoryActivity extends AppCompatActivity {
 
     }
 
+    public void refreshData(){
+        List<android.support.v4.app.Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (!fragments.isEmpty()){
+            DailyHistoryFragment f1 = (DailyHistoryFragment) fragments.get(0);
+            MensualHistoryFragment f2 = (MensualHistoryFragment) fragments.get(1);
+            f1.updateData();
+            f2.updateData();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,13 +90,7 @@ public class HistoryActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }else if (id == R.id.action_refresh){
-            List<android.support.v4.app.Fragment> fragments = getSupportFragmentManager().getFragments();
-            if (!fragments.isEmpty()){
-                DailyHistoryFragment f1 = (DailyHistoryFragment) fragments.get(0);
-                MensualHistoryFragment f2 = (MensualHistoryFragment) fragments.get(1);
-                f1.updateData();
-                f2.updateData();
-            }
+            refreshData();
         }
 
         return super.onOptionsItemSelected(item);

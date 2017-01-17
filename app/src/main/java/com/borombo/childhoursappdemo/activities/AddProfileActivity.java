@@ -37,7 +37,7 @@ public class AddProfileActivity extends AppCompatActivity {
                     phone.setText("");
                     Snackbar snackbar = Snackbar
                             .make(findViewById(R.id.activity_add_profile), getText(R.string.validAdd), Snackbar.LENGTH_LONG)
-                            .setAction("Ok", new View.OnClickListener() {
+                            .setAction(getText(R.string.ok), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                 }

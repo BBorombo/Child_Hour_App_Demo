@@ -2,6 +2,7 @@ package com.borombo.childhoursappdemo.holders;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,13 +26,14 @@ public class DailyHistoryHolder extends RecyclerView.ViewHolder {
     private TextView arrivalTime;
     private TextView derpatureTime;
     private Button modifyComming;
+    private HistoryActivity activity;
 
     private static android.support.v4.app.FragmentManager fragmentManager;
 
     public DailyHistoryHolder(View itemView) {
         super(itemView);
 
-        HistoryActivity activity = (HistoryActivity) itemView.getContext();
+        activity = (HistoryActivity) itemView.getContext();
         fragmentManager = activity.getSupportFragmentManager();
 
         this.arrivalTime = (TextView) itemView.findViewById(R.id.arrivalTime);
@@ -73,6 +75,7 @@ public class DailyHistoryHolder extends RecyclerView.ViewHolder {
                                 Time t = new Time(i,i1);
                                 comming.setArrival(t);
                                 arrivalTime.setText(t.toString());
+                                setSnackUpdate();
                             }
                         }, comming.getArrival().getHours(), comming.getArrival().getMinutes(), true);
                         timePickerDialog.show();
@@ -90,6 +93,7 @@ public class DailyHistoryHolder extends RecyclerView.ViewHolder {
                                     Time t = new Time(i,i1);
                                     comming.setDeparture(t);
                                     derpatureTime.setText(t.toString());
+                                    setSnackUpdate();
                                 }
                             }, comming.getDeparture().getHours(), comming.getDeparture().getMinutes(), true);
                             timePickerDialog.show();
@@ -100,5 +104,19 @@ public class DailyHistoryHolder extends RecyclerView.ViewHolder {
                 builder.show();
             }
         });
+    }
+
+    public void setSnackUpdate(){
+        Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.activity_history) , activity.getText(R.string.refreshText), Snackbar.LENGTH_LONG)
+                .setAction(activity.getText(R.string.ok), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activity.refreshData();
+                    }
+                });
+
+        snackbar.setDuration(5000);
+
+        snackbar.show();
     }
 }

@@ -4,6 +4,8 @@
     <string name="arrival_button">Arrivée</string>
     <string name="departure_button">Départ</string>
 
+    <string name="ok">Ok</string>
+
     <string name="addProfileTitle">Ajouter un profil</string>
     <string name="deleteProfileTitle">Supprimer un profil</string>
     <string name="prenom">Prenom</string>
@@ -28,7 +30,7 @@
     <string name="noTime">00 h 00</string>
 
     <string name="modifyText">Quel horaire voulez-vous modifier ?</string>
-
+    <string name="refreshText">Veuillez rafraichir les informations pour afficher les données à jour.</string>
     <string name="deleteText">Êtes vous sur de vouloir supprimer ce profil : %1$s</string>
 
 
