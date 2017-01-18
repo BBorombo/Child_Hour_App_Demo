@@ -10,7 +10,8 @@ import android.widget.EditText;
 
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.model.Profile;
-import com.borombo.childhoursappdemo.singleton.FakeData;
+
+import io.realm.Realm;
 
 public class AddProfileActivity extends AppCompatActivity {
 
@@ -18,6 +19,8 @@ public class AddProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_profile);
+
+        final Realm realm = Realm.getDefaultInstance();
 
         final EditText name = (EditText) findViewById(R.id.name);
         final EditText phone = (EditText) findViewById(R.id.phone);
@@ -30,17 +33,31 @@ public class AddProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (name.getText().length() >= 2 && phone.getText().length() >= 10){
-                    Profile profile = new Profile(name.getText().toString(), phone.getText().toString());
+
                     // Ajout du profil en BD
-                    FakeData.getInstance().getProfiles().add(profile);
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            Number num = realm.where(Profile.class).max("id");
+                            int nextID;
+                            if(num == null) {
+                                nextID = 1;
+                            } else {
+                                nextID = num.intValue() + 1;
+                            }
+                            Profile profile = realm.createObject(Profile.class, nextID);
+                            profile.setName(name.getText().toString());
+                            profile.setPhone(phone.getText().toString());
+                        }
+                    });
+
                     name.setText("");
                     phone.setText("");
                     Snackbar snackbar = Snackbar
                             .make(findViewById(R.id.activity_add_profile), getText(R.string.validAdd), Snackbar.LENGTH_LONG)
                             .setAction(getText(R.string.ok), new View.OnClickListener() {
                                 @Override
-                                public void onClick(View view) {
-                                }
+                                public void onClick(View view) {}
                             });
                     snackbar.show();
 

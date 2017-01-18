@@ -22,9 +22,6 @@ public class HomeProfileHolder extends RecyclerView.ViewHolder{
     private Button departure;
     private Profile profile;
 
-
-
-
     public HomeProfileHolder(View itemView) {
         super(itemView);
 
@@ -37,7 +34,7 @@ public class HomeProfileHolder extends RecyclerView.ViewHolder{
         this.arrival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DailyTimeSheet dailyTimeSheet = null;
+                DailyTimeSheet dailyTimeSheet;
 
                 view.setEnabled(false);
                 departure.setEnabled(true);

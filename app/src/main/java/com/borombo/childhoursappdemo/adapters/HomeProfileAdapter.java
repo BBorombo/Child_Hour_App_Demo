@@ -12,7 +12,7 @@ import com.borombo.childhoursappdemo.activities.HistoryActivity;
 import com.borombo.childhoursappdemo.holders.HomeProfileHolder;
 import com.borombo.childhoursappdemo.model.Profile;
 
-import java.util.ArrayList;
+import io.realm.RealmResults;
 
 /**
  * Created by Erwan on 12/11/2016.
@@ -21,9 +21,9 @@ import java.util.ArrayList;
 public class HomeProfileAdapter extends RecyclerView.Adapter<HomeProfileHolder> {
 
 
-    private ArrayList<Profile> profiles;
+    private RealmResults<Profile> profiles;
 
-    public HomeProfileAdapter(ArrayList<Profile> profiles) {this.profiles = profiles;}
+    public HomeProfileAdapter(RealmResults<Profile> profiles) {this.profiles = profiles;}
 
     @Override
     public HomeProfileHolder onCreateViewHolder(ViewGroup parent, int viewType) {

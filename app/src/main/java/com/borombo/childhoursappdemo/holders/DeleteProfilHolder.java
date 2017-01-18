@@ -10,7 +10,8 @@ import android.widget.TextView;
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.adapters.DeleteProfileAdapter;
 import com.borombo.childhoursappdemo.model.Profile;
-import com.borombo.childhoursappdemo.singleton.FakeData;
+
+import io.realm.Realm;
 
 /**
  * Created by Erwan on 15/11/2016.
@@ -21,11 +22,11 @@ public class DeleteProfilHolder extends RecyclerView.ViewHolder{
     private TextView profileName;
     private int profileId;
     private Button deleteButton;
-    private int position;
-
 
     public DeleteProfilHolder(final DeleteProfileAdapter adapter, final View itemView) {
         super(itemView);
+
+        final Realm realm = Realm.getDefaultInstance();
 
         this.profileName = (TextView) itemView.findViewById(R.id.porfileName);
         this.deleteButton = (Button) itemView.findViewById(R.id.deleteButton);
@@ -46,7 +47,12 @@ public class DeleteProfilHolder extends RecyclerView.ViewHolder{
                 builder.setPositiveButton(R.string.valid, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FakeData.getInstance().removeById(profileId);
+                        realm.executeTransaction(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                realm.where(Profile.class).findAll().get(profileId - 1).deleteFromRealm();
+                            }
+                        });
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -57,9 +63,8 @@ public class DeleteProfilHolder extends RecyclerView.ViewHolder{
         });
     }
 
-    public void updateUI(Profile profile, int position){
+    public void updateUI(Profile profile){
         profileName.setText(profile.getName());
         profileId = profile.getId();
-        this.position = position;
     }
 }

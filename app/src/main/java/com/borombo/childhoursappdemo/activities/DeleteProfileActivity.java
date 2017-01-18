@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.adapters.DeleteProfileAdapter;
-import com.borombo.childhoursappdemo.singleton.FakeData;
+import com.borombo.childhoursappdemo.model.Profile;
+
+import io.realm.Realm;
 
 public class DeleteProfileActivity extends AppCompatActivity {
 
@@ -19,21 +21,14 @@ public class DeleteProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_profile);
 
+        Realm realm = Realm.getDefaultInstance();
+
         recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
 
-
-//        ArrayList<Profile> profiles = new ArrayList<Profile>();
-//        profiles.add(new Profile("Superman","0606060606"));
-
-        adapter = new DeleteProfileAdapter(FakeData.getInstance().getProfiles());
+        adapter = new DeleteProfileAdapter(realm.where(Profile.class).findAll());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
 
-    public void profileDeleted(int position){
-        recyclerView.removeViewAt(position);
-        adapter.notifyItemRemoved(position);
-        adapter.notifyItemRangeChanged(position, FakeData.getInstance().getProfiles().size());
-    }
 }

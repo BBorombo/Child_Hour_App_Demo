@@ -1,10 +1,10 @@
 package com.borombo.childhoursappdemo.model;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 
 /**
@@ -13,28 +13,15 @@ import io.realm.RealmObject;
 
 public class Profile extends RealmObject {
 
-    private static final AtomicInteger count = new AtomicInteger(0);
+    @PrimaryKey
     private int id;
     private String name;
     private String phone;
     private String photo;
     private Boolean present = false;
-    RealmList<DailyTimeSheet> timeSheets = new RealmList<>();
+    private RealmList<DailyTimeSheet> timeSheets = new RealmList<>();
 
-    public Profile() {
-        id = count.incrementAndGet();
-    }
-
-    public Profile(String name) {
-        id = count.incrementAndGet();
-        this.name = name;
-    }
-
-    public Profile(String name, String phone) {
-        id = count.incrementAndGet();
-        this.name = name;
-        this.phone = phone;
-    }
+    public Profile() {}
 
     public DailyTimeSheet getDTSByDay(String day){
         String dayContent[] = day.split("_");
@@ -79,11 +66,11 @@ public class Profile extends RealmObject {
         return totalMonthTime.toString();
     }
 
-    public boolean isTDSForDate(String date){
+    /*public boolean isTDSForDate(String date){
         boolean res = false;
 
         return res;
-    }
+    }*/
 
     public Boolean isPresent() {
         return present;

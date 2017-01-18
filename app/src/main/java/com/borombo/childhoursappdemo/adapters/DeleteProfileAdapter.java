@@ -9,7 +9,7 @@ import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.holders.DeleteProfilHolder;
 import com.borombo.childhoursappdemo.model.Profile;
 
-import java.util.ArrayList;
+import io.realm.RealmResults;
 
 /**
  * Created by Erwan on 15/11/2016.
@@ -17,10 +17,8 @@ import java.util.ArrayList;
 
 public class DeleteProfileAdapter extends RecyclerView.Adapter<DeleteProfilHolder>{
 
-    private ArrayList<Profile> profiles;
-
-    public DeleteProfileAdapter(ArrayList<Profile> profiles) {this.profiles = profiles;}
-
+    private RealmResults<Profile> profiles;
+    public DeleteProfileAdapter(RealmResults<Profile> profiles) {this.profiles = profiles;}
 
     @Override
     public DeleteProfilHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,7 +29,7 @@ public class DeleteProfileAdapter extends RecyclerView.Adapter<DeleteProfilHolde
     @Override
     public void onBindViewHolder(DeleteProfilHolder holder, int position) {
         final Profile profile = profiles.get(position);
-        holder.updateUI(profile, position);
+        holder.updateUI(profile);
     }
 
     @Override

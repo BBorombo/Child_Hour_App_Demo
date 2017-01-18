@@ -21,9 +21,7 @@ public class FakeData {
     }
 
     private FakeData() {
-        profiles.add(new Profile("Superman","0606060606"));
-        profiles.add(new Profile("Batman","0707070707"));
-        profiles.add(new Profile("Flash","0808080808"));
+
     }
 
     public ArrayList<Profile> getProfiles(){return this.profiles;}

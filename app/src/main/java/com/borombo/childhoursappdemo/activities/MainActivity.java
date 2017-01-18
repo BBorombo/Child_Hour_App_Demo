@@ -13,12 +13,13 @@ import android.widget.TextView;
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.adapters.HomeProfileAdapter;
 import com.borombo.childhoursappdemo.model.Profile;
-import com.borombo.childhoursappdemo.singleton.FakeData;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,26 +27,20 @@ public class MainActivity extends AppCompatActivity {
 
     HomeProfileAdapter adapter;
 
+    private Realm realm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Profile> profiles = new ArrayList<>();
-
-        profiles.add(new Profile("Moi"));
-        profiles.add(new Profile("Toi"));
-        profiles.add(new Profile("Lui"));
-        profiles.add(new Profile("Elle"));
-        profiles.add(new Profile("Nous"));
-        profiles.add(new Profile("Vous"));
-        profiles.add(new Profile("Ils"));
-        profiles.add(new Profile("Elo"));
-        profiles.add(new Profile("Truc"));
-        profiles.add(new Profile("Machin"));
+        // Create Realm instance
+        realm = Realm.getDefaultInstance();
 
         currentTime = (TextView) findViewById(R.id.currentTime);
         RecyclerView recyclerView = (RecyclerView) this.findViewById(R.id.recyclerView);
+
+        // Affichage / MAJ de l'Heure
 
         final Handler someHandler = new Handler(getMainLooper());
         someHandler.postDelayed(new Runnable() {
@@ -56,14 +51,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 10);
 
+        // Set Adapter / Recycler View
 
-
-        adapter = new HomeProfileAdapter(FakeData.getInstance().getProfiles());
+        adapter = new HomeProfileAdapter(getProfiles());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
+
+        //  Add / Delete Listener
 
         Button addProfile = (Button) findViewById(R.id.addProfile);
         Button deleteProfile = (Button) findViewById(R.id.deleteProfile);
@@ -84,6 +81,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * Recupère la liste des profils de la DB Locale
+     * @return Liste des profils
+     */
+    public RealmResults<Profile> getProfiles(){
+        return realm.where(Profile.class).findAll();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 
     @Override
