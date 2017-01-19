@@ -17,8 +17,8 @@ import com.borombo.childhoursappdemo.adapters.DailyHistoryAdapter;
 import com.borombo.childhoursappdemo.model.Comming;
 import com.borombo.childhoursappdemo.model.DailyTimeSheet;
 import com.borombo.childhoursappdemo.model.Profile;
-import com.borombo.childhoursappdemo.singleton.FakeData;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 
 /**
@@ -43,6 +43,8 @@ public class DailyHistoryFragment extends Fragment {
     private DailyHistoryAdapter adapter;
     private String day;
 
+    private Realm realm;
+
     public DailyHistoryFragment() {
         // Required empty public constructor
     }
@@ -66,9 +68,10 @@ public class DailyHistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        realm = Realm.getDefaultInstance();
         if (getArguments() != null) {
             profileId = getArguments().getInt(ARG_PROFILE_ID);
-            profile = FakeData.getInstance().getById(profileId);
+            profile = realm.where(Profile.class).equalTo("id", profileId).findFirst();
             Log.d("Profile name", profile.getName());
         }
         Log.d("Fragment Tag", this.getTag());

@@ -23,6 +23,14 @@ public class Time extends RealmObject {
         this.minutes = minutes;
     }
 
+    public void setHours(String hours){
+        this.hours = Integer.valueOf(hours);
+    }
+
+    public void setMinutes(String minutes){
+        this.minutes = Integer.valueOf(minutes);
+    }
+
     public void setHours(int hours){this.hours = hours;}
     public void setMinutes(int minutes){this.minutes = minutes;}
 

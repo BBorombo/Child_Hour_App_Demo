@@ -1,5 +1,6 @@
 package com.borombo.childhoursappdemo.model;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
@@ -24,7 +25,7 @@ public class DailyTimeSheet extends RealmObject {
         this.month = dateTimeValues[1];
         this.years = dateTimeValues[2];
         commings.add(new Comming(dateTimeValues[3], dateTimeValues[4]));
-        totalTime = new Time();
+        totalTime = Realm.getDefaultInstance().createObject(Time.class);
     }
 
     public void addComming(String dateTimeValues[]){
@@ -64,26 +65,31 @@ public class DailyTimeSheet extends RealmObject {
     }
 
     public Time getTotalTime() {
-        totalTime = new Time();
-        for (Comming c: commings) {
-            Time tmp = c.getTime();
-            if (tmp != null){
-                // Hours
-                totalTime.setHours(totalTime.getHours() + tmp.getHours());
-                // Minutes
-                int mins = totalTime.getMinutes() + tmp.getMinutes();
-                if (mins > 60){
-                    totalTime.setHours(totalTime.getHours() + 1);
-                    totalTime.setMinutes(mins - 60);
-                }else if(mins == 60){
-                    totalTime.setHours(totalTime.getHours() + 1);
-                    totalTime.setMinutes(0);
-                }else {
-                    totalTime.setMinutes(mins);
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                totalTime = realm.createObject(Time.class);
+                for (Comming c: commings) {
+                    Time tmp = c.getTime();
+                    if (tmp != null){
+                        // Hours
+                        totalTime.setHours(totalTime.getHours() + tmp.getHours());
+                        // Minutes
+                        int mins = totalTime.getMinutes() + tmp.getMinutes();
+                        if (mins > 60){
+                            totalTime.setHours(totalTime.getHours() + 1);
+                            totalTime.setMinutes(mins - 60);
+                        }else if(mins == 60){
+                            totalTime.setHours(totalTime.getHours() + 1);
+                            totalTime.setMinutes(0);
+                        }else {
+                            totalTime.setMinutes(mins);
+                        }
+                    }
                 }
             }
-        }
-
+        });
         return totalTime;
     }
 

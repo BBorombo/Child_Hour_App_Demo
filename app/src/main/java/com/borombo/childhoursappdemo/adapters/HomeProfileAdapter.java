@@ -27,7 +27,6 @@ public class HomeProfileAdapter extends RecyclerView.Adapter<HomeProfileHolder> 
 
     @Override
     public HomeProfileHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View profileView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_profile_row , parent, false);
         return new HomeProfileHolder(profileView);
     }

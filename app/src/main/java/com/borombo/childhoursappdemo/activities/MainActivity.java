@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         someHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                currentTime.setText(new SimpleDateFormat("HH:mm", Locale.FRANCE).format(new Date()));
+                currentTime.setText(new SimpleDateFormat("HH:mm", Locale.FRENCH).format(new Date()));
                 someHandler.postDelayed(this, 1000);
             }
         }, 10);

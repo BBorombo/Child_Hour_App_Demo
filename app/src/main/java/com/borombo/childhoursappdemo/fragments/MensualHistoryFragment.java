@@ -16,7 +16,8 @@ import com.borombo.childhoursappdemo.Data.Constants;
 import com.borombo.childhoursappdemo.R;
 import com.borombo.childhoursappdemo.adapters.MensualHistoryAdapter;
 import com.borombo.childhoursappdemo.model.Profile;
-import com.borombo.childhoursappdemo.singleton.FakeData;
+
+import io.realm.Realm;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +38,8 @@ public class MensualHistoryFragment extends Fragment {
     private MensualHistoryAdapter adapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+
+    private Realm realm;
 
     public MensualHistoryFragment() {}
 
@@ -59,9 +62,10 @@ public class MensualHistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        realm = Realm.getDefaultInstance();
         if (getArguments() != null) {
             profileId = getArguments().getInt(ARG_PROFILE_ID);
-            profile = FakeData.getInstance().getById(profileId);
+            profile = realm.where(Profile.class).equalTo("id", profileId).findFirst();
             Log.d("Profile name", profile.getName());
         }
     }

@@ -1,5 +1,6 @@
 package com.borombo.childhoursappdemo.model;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 
 /**
@@ -13,15 +14,21 @@ public class Comming extends RealmObject {
     private Time departure = new Time();
     private Time time;
 
+
+
     public Comming() {}
 
-    public Comming(String hours, String minutes) {
-        arrival = new Time(hours,minutes);
-    }
+    public Comming(String hours, String minutes) {arrival = new Time(hours,minutes);}
 
-    public void setDeparture(String hours, String minutes){
-        departure = new Time(hours,minutes);
-        setTime();
+    public void setDeparture(final String hours, final String minutes){
+
+            departure =  Realm.getDefaultInstance().createObject(Time.class);
+            departure.setHours(hours);
+            departure.setMinutes(minutes);
+            //departure = new Time(hours, minutes);
+            setTime();
+
+
     }
 
     private void setTime(){
@@ -37,7 +44,10 @@ public class Comming extends RealmObject {
             hour = departure.getHours() - arrival.getHours();
         }
 
-        time = new Time(hour, min);
+        time = Realm.getDefaultInstance().createObject(Time.class);
+        time.setHours(hour);
+        time.setMinutes(min);
+
     }
 
     public Time getTime() {return time;}
